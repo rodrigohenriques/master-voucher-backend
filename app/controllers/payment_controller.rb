@@ -9,11 +9,9 @@ class PaymentController < ApplicationController
 
     pay = Payment.new
 
-    @result = pay.do_payment params['amount'] params['tokenId'] params['items']
+    @result = pay.do_payment(params['amount'], params['tokenId'], params['items'])
 
-    respond_to do |format|
-      format.html { render :text => @result }
-    end 
+	render json: { "status" => @result, "payment_id" => pay.id }.to_json
 
   end
 

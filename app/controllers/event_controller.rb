@@ -9,7 +9,7 @@ class EventController < ApplicationController
 
 		event_hash = event.as_json
 
-		products = event.products.as_json
+		products = event.products.sort { |a,b| a.producttype_id <=> b.producttype_id }.as_json
 
 		products.each do |prod|
 			prod[:type] = Producttype.find(prod["producttype_id"]).name

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   get 'form/master_pass'
 
   ActiveAdmin.routes(self)
@@ -13,5 +14,11 @@ Rails.application.routes.draw do
   get '/event/:id', to: 'event#get_info', as: 'simple'
 
   get '/event/formatted/:id', to: 'event#get_event_products_formatted'
+
+  post 'merchant/delivery'
+
+  post 'merchant/delivery/check', to: 'merchant#check'
+
+  get 'customer/items'
 
 end
