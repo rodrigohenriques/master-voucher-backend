@@ -7,13 +7,17 @@ class EventController < ApplicationController
 
 		event = Event.find(id)
 
+		event_hash = event.as_json
+
 		products = event.products.as_json
 
 		products.each do |prod|
 			prod[:type] = Producttype.find(prod["producttype_id"]).name
 		end
 
-		json = {:event => event.as_json, :products => products}.to_json
+		event_hash[:products] = products
+
+		json = event_hash.to_json
 
   		render json: json
 
