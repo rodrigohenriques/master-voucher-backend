@@ -2,22 +2,21 @@ class MerchantController < ApplicationController
 
   def delivery
 
-	id = params[:id]
+	body = request.body.read
 
-	payment = Payment.find(id)
-
-	items = JSON.parse(params[:items])
+	items = JSON.parse(body)
 
 	items.each do |item|
-		quantity = item[:quantity]
-		product_id = item[:product_id]
-		clientItems = ClientItem.where("product_id = ?", product_id)
-		if clientItems.size == 1
-			clientItem = clientItems.last
+		quantity = item["quantity"]
+		product_id = item["product_id"]
+		clientItem = ClientItem.where("product_id = ?", product_id).last
+		if clientItem
 			clientItem.quantity -= quantity
 			clientItem.save
 		end
 	end
+
+	render json: {:status => "ok"}.to_json
 
   end
 
