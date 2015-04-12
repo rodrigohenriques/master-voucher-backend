@@ -9,13 +9,20 @@ class EventController < ApplicationController
 
 		event_hash = event.as_json
 
-		products = event.products.sort { |a,b| a.producttype_id <=> b.producttype_id }.as_json
+		products = event.products.sort { |a,b| a.producttype_id <=> b.producttype_id }
+
+		products_hash = []
 
 		products.each do |prod|
-			prod[:type] = Producttype.find(prod["producttype_id"]).name
+			prod_hash = prod.as_json
+			value = "%.2f" % prod.value
+			new_value = value.gsub(/[^0-9]/, "")
+			prod_hash[:value] = new_value
+			prod_hash[:type] = Producttype.find(prod["producttype_id"]).name
+			products_hash << prod_hash
 		end
 
-		event_hash[:products] = products
+		event_hash[:products] = products_hash
 
 		json = event_hash.to_json
 

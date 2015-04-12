@@ -12,7 +12,7 @@ class MerchantController < ApplicationController
 		clientItem = ClientItem.where("product_id = ?", product_id).last
 		if clientItem
 			clientItem.quantity -= quantity
-			clientItem.save
+			clientItem.save!
 		end
 	end
 
