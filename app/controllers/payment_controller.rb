@@ -3,20 +3,9 @@ require 'simplify'
 class PaymentController < ApplicationController
   def index
 
-	payment = Simplify::Payment.create({
-	        "card" => {
-	            "number" => "5555555555554444",
-	            "expMonth" => 11,
-	            "expYear" => 15,
-	            "cvc" => "123"
-	        },
-	        "amount" => 1000,
-	        "currency"  => "USD",
-	        "description" => "Description"
-	})
+    pay = Payment.new
 
-
-    @result = payment['paymentStatus']
+    @result = pay.do_payment
 
   	respond_to do |format|
     	format.html { render :text => @result }
