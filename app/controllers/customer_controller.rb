@@ -4,7 +4,11 @@ class CustomerController < ApplicationController
 
   	list = ClientItem.where("quantity > 0")
 
-	list_hash = list.as_json
+	list_hash = []
+
+	list.each do |ci|
+		list_hash << { "product" => ci.product, "quantity" => ci.quantity }
+	end
 
 	json = list_hash.to_json
 
