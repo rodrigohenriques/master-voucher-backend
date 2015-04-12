@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'form/master_pass'
+
   ActiveAdmin.routes(self)
 
 
