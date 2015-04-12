@@ -1,49 +1,10 @@
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://www.simplify.com/commerce/v1/simplify.js"></script>
-    <script type="text/javascript">
-        function masterPassResponseHandler(data, status) {
-            var $paymentForm = $("#simplify-payment-form");
-            // Remove all previous errors
-            $(".error").remove();
-            // Check for errors
-            if (data.error) {
-                // Show any validation errors
-                if (data.error.code == "validation") {
-                    var fieldErrors = data.error.fieldErrors,
-                        fieldErrorsLength = fieldErrors.length,
-                        errorList = "";
-                    for (var i = 0; i < fieldErrorsLength; i++) {
-                        errorList += "<div class='error'>Field: '" + fieldErrors[i].field +
-                                     "' is invalid - " + fieldErrors[i].message + "</div>";
-                    }
-                    // Display the errors
-                    $paymentForm.after(errorList);
-                }
-            } else {
-                // The token contains id, last4, and card type
-                var token = data.cardToken.id;
-                alert(data);
-                window.dataMaster = data;
-                // Insert the token into the form so it gets submitted to the server
-                $paymentForm.append("<input type='hidden' name='simplifyToken' value='" + token + "' />");
-                // Submit the form to the server
-                //$paymentForm.get(0).submit();
-            }
-        }
-function masterPassCanceledHandler () {
-    console.log ("MasterPass canceled")
-}
-        $(document).ready(function() {
-            SimplifyCommerce.addMasterPassCheckoutButton("buy-with-masterpass-div", "sbpb_NDhiODIyZTQtNzM4OC00YmRlLTliMzEtYjBmZWE5NjA5NDVh", masterPassResponseHandler, masterPassCanceledHandler);
-        });
-    </script>
-
-
-<form id="simplify-payment-form" action="" method="POST">
-
-    <div id="buy-with-masterpass-div"></div>
-
-</form>
-
-
+<script type="text/javascript"
+        src="https://www.simplify.com/commerce/simplify.pay.js"></script>
+<iframe name="my-hosted-form"
+        data-sc-key="sbpb_Y2FhYTEzYmEtYmEyZS00YzYyLTllMzYtNTE2MDgxMDY3ODcw"
+        data-name="Jasmine Green Tea"
+        data-description="Smooth tea with a rich jasmine bouquet"
+        data-reference="99999"
+        data-amount="3000"
+        data-color="#12B830">
+</iframe>
