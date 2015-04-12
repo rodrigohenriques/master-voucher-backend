@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   post 'payment/pay'
   get 'payment/token'
 
-  get '/event/:id', to: 'event#get_info', as: 'patient'
+  get '/event/:id', to: 'event#get_info', as: 'simple'
+
+  get '/event/formatted/:id', to: 'event#get_event_products_formatted'
 
 end
